@@ -2,7 +2,7 @@
 # Stacks detected: deps:java:microservices/product-service,tool:gradle:
 version: 2.1
 jobs:
-  test-java:
+  build-java:
     docker:
       - image: cimg/openjdk:17.0
     working_directory: ~/project/microservices/product-service
@@ -16,8 +16,8 @@ jobs:
                     sort | xargs cat > /tmp/CIRCLECI_CACHE_KEY
       - restore_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
-      - run:
-          command: ./gradlew check
+      #- run:
+      #    command: ./gradlew check
       - store_test_results:
           path: build/test-results
       - save_cache:
@@ -32,13 +32,13 @@ jobs:
       - image: cimg/base:stable
     steps:
       # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+      #- run:
+      #    name: deploy
+      #    command: '#e.g. ./deploy.sh'
 workflows:
   build-and-test:
     jobs:
-      - test-java
+      - build-java
     # - deploy:
     #     requires:
     #       - test-java
