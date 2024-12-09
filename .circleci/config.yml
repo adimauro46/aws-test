@@ -162,7 +162,7 @@ jobs:
 workflows:
   build-and-test:
     jobs:
-      - build-eureka-service
+      - build-eureka-server
       - build-order-service
       - build-product-service
       - build-inventory-service
