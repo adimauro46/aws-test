@@ -26,11 +26,11 @@ jobs:
             - ~/.gradle/caches
       - store_artifacts:
           path: build/reports
-  deploy:
+  #deploy:
     # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
+   # docker:
+    #  - image: cimg/base:stable
+    #steps:
       # Replace this with steps to deploy to users
       #- run:
       #    name: deploy
