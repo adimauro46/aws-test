@@ -37,6 +37,23 @@ jobs:
           command: |
             docker login -u alfiodimauro -p Alf10@1978!!
             docker push alfiodimauro/adm_solutions:eureka-server
+deploy:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: default
+      - run:
+          name: Install kubectl
+          command: |
+            curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x ./kubectl
+            mv ./kubectl /usr/local/bin/kubectl
+      - run:
+          name: Deploy to Kubernetes
+          command: |
+            kubectl set image deployment/my-k8s-deployment my-container=alfiodimauro/adm_solutions:eureka_server
 workflows:
   build-and-test:
     jobs:
