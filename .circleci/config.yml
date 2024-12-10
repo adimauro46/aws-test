@@ -60,4 +60,6 @@ workflows:
   build-and-test:
     jobs:
       - build-eureka-server
-      - deploy
+      - deploy:
+          requires:
+             - test-java
