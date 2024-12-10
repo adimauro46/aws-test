@@ -216,4 +216,4 @@ workflows:
              - build-inventory-service
       - deploy:
           requires:
-             - build-eureka-server
+             -build-api-gateway
