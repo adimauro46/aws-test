@@ -37,7 +37,7 @@ jobs:
           command: |
             docker login -u alfiodimauro -p Alf10@1978!!
             docker push alfiodimauro/adm_solutions:eureka-server
-deploy:
+  deploy:
     docker:
       - image: circleci/python:3.8
     steps:
