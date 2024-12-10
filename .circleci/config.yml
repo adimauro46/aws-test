@@ -216,4 +216,4 @@ workflows:
              - build-inventory-service
       - deploy:
           requires:
-             -build-api-gateway
+             - build-api-gateway
