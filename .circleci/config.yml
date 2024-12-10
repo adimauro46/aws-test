@@ -200,6 +200,21 @@ workflows:
   build-and-test:
     jobs:
       - build-eureka-server
+      - build-order-service:
+          requires:
+             - build-eureka-server
+      - build-product-service:
+          requires:
+             - build-eureka-server       
+      - build-inventory-service:
+          requires:
+             - build-eureka-server
+      - build-api-gateway:
+          requires:
+             - build-eureka-server
+             - build-order-service
+             - build-product-service
+             - build-inventory-service
       - deploy:
           requires:
              - build-eureka-server
