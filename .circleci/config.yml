@@ -24,14 +24,10 @@ jobs:
       - run:
           name: Build
           command: ./gradlew bootJar
-      - store_test_results:
-          path: build/test-results/eureka-server
       - save_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
           paths:
             - ~/.gradle/caches
-      - store_artifacts:
-          path: build/reports
       - run:
           name: Build Docker Image
           command: |
