@@ -60,5 +60,7 @@ workflows:
   build-and-test:
     jobs:
       - build-eureka-server
-      - deploy
+     - deploy:
+         requires:
+           - build-eureka-server
       
