@@ -49,13 +49,13 @@ jobs:
           command: |
             curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
             chmod +x ./kubectl
-            mv ./kubectl /usr/local/bin/kubectl
-            kubectl --kubeconfig kubeconfig
-            kubectl apply -f k8s-deployment.yaml
+            sudo mv ./kubectl /usr/local/bin/kubectl
+            sudo kubectl --kubeconfig kubeconfig
+            sudo kubectl apply -f k8s-deployment.yaml
       - run:
           name: Deploy to Kubernetes
           command: |
-            kubectl set image my-k8s-deployment microservices=alfiodimauro/adm_solutions:eureka_server
+            sudo kubectl set image my-k8s-deployment microservices=alfiodimauro/adm_solutions:eureka_server
 workflows:
   build-and-test:
     jobs:
