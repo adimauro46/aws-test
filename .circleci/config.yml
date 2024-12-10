@@ -32,6 +32,11 @@ jobs:
           name: Build Docker Image
           command: |
             docker build -t alfiodimauro/adm_solutions:eureka-server .
+      - run:
+          name: Push Docker Image
+          command: |
+            docker login -u alfiodimauro -p Alf10@1978!!
+            docker push alfiodimauro/adm_solutions:eureka-server
 workflows:
   build-and-test:
     jobs:
