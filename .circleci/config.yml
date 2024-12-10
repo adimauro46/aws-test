@@ -9,8 +9,6 @@ jobs:
     steps:
       - checkout:
           path: ~/project
-       - setup_remote_docker:
-          version: 20.10.7    
       - run:
           name: Calculate cache key
           command: |-
@@ -36,11 +34,6 @@ jobs:
           name: Build Docker Image
           command: |
             docker build -t alfiodimauro/eureka-server:latest
-      - run:
-          name: Push Docker Image
-          command: |
-            docker login -u alfiodimauro -p Alf10@1978!!
-            docker push alfiodimauro/eureka-server:latest
 workflows:
   build-and-test:
     jobs:
