@@ -17,9 +17,11 @@ jobs:
       - restore_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
       - run:
-          command: 
-          sudo chmod +x gradlew
-          ./gradlew build
+          name: set gradle
+          command: sudo chmod +x ./gradlew    
+      - run:
+          name: build
+          command: ./gradlew build
       - store_test_results:
           path: build/test-results
       - save_cache:
