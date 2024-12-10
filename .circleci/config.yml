@@ -51,6 +51,7 @@ deploy:
             chmod +x ./kubectl
             mv ./kubectl /usr/local/bin/kubectl
             kubectl --kubeconfig kubeconfig
+            kubectl apply -f k8s-deployment.yaml
       - run:
           name: Deploy to Kubernetes
           command: |
