@@ -23,7 +23,7 @@ jobs:
           command: sudo chmod +x ./gradlew
       - run:
           name: Build
-          command: ./gradlew build
+          command: ./gradlew assemble
       - store_test_results:
           path: build/test-results/eureka-server
       - save_cache:
