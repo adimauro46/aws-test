@@ -51,7 +51,7 @@ jobs:
             chmod +x ./kubectl
             sudo mv ./kubectl /usr/local/bin/kubectl
             sudo kubectl --kubeconfig kubeconfig
-            sudo kubectl apply -f ~/project/microservices/eureka-server/k8s-deployment.yaml
+            sudo kubectl apply -f ~/project/microservices/eureka-server/k8s-deployment.yaml --validate=false
       - run:
           name: Deploy to Kubernetes
           command: |
