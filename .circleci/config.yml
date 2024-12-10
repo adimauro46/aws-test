@@ -23,15 +23,11 @@ jobs:
           command: sudo chmod +x ./gradlew
       - run:
           name: Build
-          command: ./gradlew assemble
-      - store_test_results:
-          path: build/test-results/eureka-server
+          command: ./gradlew bootJar
       - save_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
           paths:
             - ~/.gradle/caches
-      - store_artifacts:
-          path: build/reports
       - run:
           name: Build Docker Image
           command: |
