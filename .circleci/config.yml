@@ -61,6 +61,6 @@ workflows:
     jobs:
       - build-eureka-server
       - deploy
-         requires:
-           - build-eureka-server
+        # requires:
+        #  - build-eureka-server
       
