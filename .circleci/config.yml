@@ -53,7 +53,7 @@ deploy:
       - run:
           name: Deploy to Kubernetes
           command: |
-            kubectl set image deployment/my-k8s-deployment my-container=alfiodimauro/adm_solutions:eureka_server
+            kubectl set image my-k8s-deployment microservices=alfiodimauro/adm_solutions:eureka_server
 workflows:
   build-and-test:
     jobs:
