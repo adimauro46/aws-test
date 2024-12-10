@@ -2,13 +2,15 @@
 # Stacks detected: deps:java:microservices/product-service,tool:gradle:
 version: 2.1
 jobs:
-  test-java:
+  build-eureka-server:
     docker:
       - image: cimg/openjdk:17.0
-    working_directory: ~/project/microservices/product-service
+    working_directory: ~/project/microservices/eureka-server
     steps:
       - checkout:
           path: ~/project
+      - setup_remote_docker:
+          version: default
       - run:
           name: Calculate cache key
           command: |-
@@ -18,29 +20,44 @@ jobs:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
       - run:
           name: set gradle
-          command: sudo chmod +x ./gradlew    
+          command: sudo chmod +x ./gradlew
       - run:
-          name: build
-          command: ./gradlew build
-      - store_test_results:
-          path: build/test-results
+          name: Build
+          command: ./gradlew bootJar
       - save_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
           paths:
             - ~/.gradle/caches
-      - store_artifacts:
-          path: build/reports
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
       - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: Build Docker Image
+          command: |
+            docker build -t alfiodimauro/adm_solutions:eureka-server .
+      - run:
+          name: Push Docker Image
+          command: |
+            docker login -u alfiodimauro -p Alf10@1978!!
+            docker push alfiodimauro/adm_solutions:eureka-server
+deploy:
+    docker:
+      - image: circleci/python:3.8
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: default
+      - run:
+          name: Install kubectl
+          command: |
+            curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+            chmod +x ./kubectl
+            mv ./kubectl /usr/local/bin/kubectl
+            kubectl --kubeconfig kubeconfig
+            kubectl apply -f k8s-deployment.yaml
+      - run:
+          name: Deploy to Kubernetes
+          command: |
+            kubectl set image my-k8s-deployment microservices=alfiodimauro/adm_solutions:eureka_server
 workflows:
   build-and-test:
     jobs:
-      - test-java
+      - build-eureka-server
       - deploy
