@@ -62,4 +62,4 @@ workflows:
       - build-eureka-server
       - deploy:
           requires:
-             - test-java
+             - build-eureka-server
