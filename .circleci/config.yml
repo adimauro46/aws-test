@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Build Docker Image
           command: |
-            docker build -t alfiodimauro/adm_solutions:eureka-server:latest
+            docker build -t alfiodimauro/adm_solutions:eureka-server
 workflows:
   build-and-test:
     jobs:
